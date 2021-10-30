@@ -1,53 +1,16 @@
 // import React from "react";
 
 import "components/Application.scss";
-import DayList from "./DayList";
+import DayList from "components/DayList";
 import React, { useState } from "react";
 import "components/Appointment";
-import Appointment from "./Appointment";
+import Appointment from "components/Appointment";
 import axios from "axios";
 import { useEffect } from "react";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer: {
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-  }
-];
 
 
 
@@ -55,25 +18,35 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
+    appointments: {},
+    interviewers: []
   });
 
-  const listOfAppointments = appointments.map((appointment) =>
 
+  const setDay = day => setState({ ...state, day });
+
+
+  useEffect(() => {
+    const promise1 = axios.get('/api/days');
+    const promise2 = axios.get('/api/appointments');
+    const promise3 = axios.get('/api/interviewers');
+
+    Promise.all([promise1, promise2, promise3])
+      .then((all) => {
+        const days = all[0].data;
+        const appointments = all[1].data;
+        const interviewers = all[2].data;
+        setState({ ...state, days, appointments, interviewers })
+      })
+
+  }, []);
+
+  const appointments = getAppointmentsForDay(state, state.day);
+  const listOfAppointments = appointments.map((appointment) =>
     <Appointment
       key={appointment.id} {...appointment}
     />
   )
-
-  useEffect(() => {
-    const url = 'http://localhost:8001/api/days';
-    axios.get(url).then(response => {
-      setDays([...response.data])
-
-    });
-
-
-  }, []);
-
 
   return (
     <main className="layout">
@@ -103,7 +76,7 @@ export default function Application(props) {
       <section className="schedule">
 
         <ul>{listOfAppointments}</ul>
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+
       </section>
     </main>
   );

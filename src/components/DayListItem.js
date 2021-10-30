@@ -4,13 +4,14 @@ import "components/DayListItem.scss";
 
 export default function DayListItem(props) {
 
-  function formatSpots(props) {
-    if (props.spots === 0) {
+  function formatSpots(spots) {
+    if (spots === 0) {
       return "no spots remaining"
-    } else if (props.spots === 1) {
+    }
+    if (spots === 1) {
       return "1 spot remaining"
     }
-    return props.spots + " spots remaining";
+    return spots + " spots remaining";
   };
 
   const dayClass = classNames("day-list__item", {
