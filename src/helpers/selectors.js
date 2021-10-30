@@ -12,12 +12,41 @@ export function getAppointmentsForDay(state, day) {
     return [];
   }
 
-  //map through the 0th indexed filteredDay appointment and return the state.appointments appointmentid
+  //map through the filteredDay appointment and return the state.appointments appointmentid
   const dailyAppointments = filteredDay.appointments.map(appointmentid => {
     return state.appointments[appointmentid];
 
   });
 
   return dailyAppointments;
+
+}
+
+// { student: "Archie Cohen", interviewer: 2 }
+
+// {
+//   id: 2,
+//   name: "Tori Malcolm",
+//   avatar: "https://i.imgur.com/Nmx0Qxo.png"
+// }
+
+// { student: "Archie Cohen", interviewer: {
+//   id: 2,
+//   name: "Tori Malcolm",
+//   avatar: "https://i.imgur.com/Nmx0Qxo.png"
+// } }
+
+export function getInterview(state, interview) {
+
+  if (!interview) {
+    return null;
+  }
+
+  const interviewer = state.interviewers[interview.interviewer];
+
+  return { ...interview, interviewer }
+
+
+
 
 }

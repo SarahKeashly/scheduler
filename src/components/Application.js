@@ -8,6 +8,7 @@ import Appointment from "components/Appointment";
 import axios from "axios";
 import { useEffect } from "react";
 import { getAppointmentsForDay } from "helpers/selectors";
+import { getInterview } from "helpers/selectors";
 
 
 
@@ -19,9 +20,8 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: []
+    interviewers: {}
   });
-
 
   const setDay = day => setState({ ...state, day });
 
@@ -42,11 +42,18 @@ export default function Application(props) {
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
-  const listOfAppointments = appointments.map((appointment) =>
-    <Appointment
-      key={appointment.id} {...appointment}
-    />
-  )
+  const listOfAppointments = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
 
   return (
     <main className="layout">
