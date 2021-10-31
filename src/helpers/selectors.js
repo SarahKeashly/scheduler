@@ -42,6 +42,7 @@ export function getInterview(state, interview) {
     return null;
   }
 
+  //copies the original object and returns it with the interviewer object 
   const interviewer = state.interviewers[interview.interviewer];
 
   return { ...interview, interviewer }
