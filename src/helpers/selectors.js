@@ -1,4 +1,4 @@
-import React from "react";
+
 
 
 export function getAppointmentsForDay(state, day) {
@@ -61,8 +61,8 @@ export function getInterviewersForDay(state, day) {
   }
 
   //map through the filteredDay appointment and return the state.appointments appointmentid
-  const dailyAppointments = filteredDay.appointments.map(appointmentid => {
-    return state.appointments[appointmentid];
+  const dailyAppointments = filteredDay.interviewers.map(appointmentid => {
+    return state.interviewers[appointmentid];
 
   });
 

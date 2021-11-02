@@ -5,8 +5,8 @@ import "components/InterviewerList.scss"
 
 export default function InterviewerList({ interviewers, setInterviewer, interviewer }) {
 
-  console.log("interviewers", interviewers)
-  console.log("setInterviewer", setInterviewer);
+  // console.log("interviewers", interviewers)
+  // console.log("setInterviewer", setInterviewer);
   console.log("interviewer", interviewer);
 
   const interviewees = interviewers.map((item) => {

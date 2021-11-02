@@ -12,7 +12,6 @@ import { getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
 
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -34,18 +33,68 @@ export default function Application(props) {
         const days = all[0].data;
         const appointments = all[1].data;
         const interviewers = all[2].data;
-        setState({ ...state, days, appointments, interviewers })
+        setState(prev => ({ ...prev, days, appointments, interviewers }))
       })
 
   }, []);
 
 
 
+  //makes an axios put call and adds in the interview form 
+  function bookInterview(id, interview) {
+
+    return axios.put(`/api/appointments/${id}`, { interview }).then((response) => {
+
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview }
+      };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+
+      setState({
+        ...state,
+        appointments
+      });
+
+    })
+      .catch((e) => console.log("something went wrong"))
+  }
+
+  //takes in id, sets state of interview to null, then sets state of appointments to null interview
+  function cancelInterview(id) {
+
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
+
+
+      const appointment = {
+        ...state.appointments[id],
+        interview: null
+      };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+
+
+      setState({
+        ...state,
+        appointments
+      });
+
+
+    })
+
+
+  }
 
 
 
   const inteviewers = getInterviewersForDay(state, state.day);
-  console.log("interviewers1", inteviewers);
 
 
   const appointments = getAppointmentsForDay(state, state.day);
@@ -59,6 +108,8 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={inteviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
