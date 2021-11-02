@@ -61,7 +61,6 @@ export default function Application(props) {
       });
 
     })
-      .catch((e) => console.log("something went wrong"))
   }
 
   //takes in id, sets state of interview to null, then sets state of appointments to null interview
