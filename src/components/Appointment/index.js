@@ -18,6 +18,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
+const EDIT = "EDITING";
 
 
 
@@ -27,7 +28,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  //adds the interview info, transisitions to SAVING then takes in bookInterview function and transitions it to SHOW - data persists 
+  //adds the interview info, transitions to SAVING then takes in bookInterview function and transitions it to SHOW - data persists 
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -39,10 +40,17 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
 
       .then(() => {
-        console.log("I'm working!");
         transition(SHOW);
       })
+
+    transition(EDIT);
+
   };
+
+
+
+
+
 
   //transitions to DELETING, calls cancelInterview with props.id and then transitions to EMPTY
   function deleteInterview() {
@@ -72,6 +80,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
@@ -100,6 +109,17 @@ export default function Appointment(props) {
       {mode === DELETING && (
         <Status
           message={"Deleting"}
+        />
+
+      )}
+
+      {mode === EDIT && (
+        <Form
+          student={props.interview.student}
+          interviewers={props.interviewers}
+          interviewer={props.interview.interviewer.id}
+          onCancel={back}
+          onSave={save}
         />
 
       )}
