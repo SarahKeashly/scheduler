@@ -30,6 +30,51 @@ const useApplicationData = function() {
   }, []);
 
 
+  function newDays(days, appointments) {
+    console.log("DAYS/APP", days, appointments)
+    // Considering the following day:
+    // {
+    //   id: 1,
+    //   name: "Monday",
+    //   appointments: [1,2,3,4,5]
+    //   spots: 2
+    // }
+
+    // // Considering those appointments:
+    // {
+    //   1:{"id": 1, "time": "12pm", "interview": { ... }
+    //   2:{"id": 2, "time": "1pm", "interview": null
+    //   3:{"id": 3, "time": "2pm", "interview": { ... }
+    //   4:{"id": 4, "time": "3pm", "interview": null
+    //   5:{"id": 5, "time": "4pm", "interview": { ... }
+    // }
+
+
+    //if interview.interviewer = null then minus 1 from available spots (appointments length)
+    return days.map((day) => {
+      //day.interviews === [1,2,3,4,5]
+      //appointments (line 43 to 50)
+
+      let newSpots = 0;
+
+      for (let i = 0; i < day.appointments.length; i++) {
+        const appointmentsID = day.appointments[i]
+
+        if (appointments[appointmentsID].interview === null) {
+          newSpots++;
+        }
+      }
+
+      return { ...day, spots: newSpots }
+
+    }
+    )
+
+  }
+
+
+
+
 
   //makes an axios put call and adds in the interview form 
   function bookInterview(id, interview) {
@@ -41,14 +86,23 @@ const useApplicationData = function() {
         interview: { ...interview }
       };
 
+      console.log("APP", appointment);
+
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
 
+      console.log("interview", interview.interviewer);
+      console.log("appointments", appointments);
+      console.log("NEWDAYS", newDays(state.days, appointments));
+
+
       setState({
         ...state,
-        appointments
+        appointments,
+        days: newDays(state.days, appointments)
+
       });
 
     })
@@ -73,7 +127,8 @@ const useApplicationData = function() {
 
       setState({
         ...state,
-        appointments
+        appointments,
+        days: newDays(state.days, appointments)
       });
 
 

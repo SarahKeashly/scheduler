@@ -7,7 +7,7 @@ export default function InterviewerList({ interviewers, setInterviewer, intervie
 
   // console.log("interviewers", interviewers)
   // console.log("setInterviewer", setInterviewer);
-  console.log("interviewer", interviewer);
+  // console.log("interviewer", interviewer);
 
   const interviewees = interviewers.map((item) => {
     return (
