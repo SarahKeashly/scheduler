@@ -31,7 +31,7 @@ const useApplicationData = function() {
 
 
   function newDays(days, appointments) {
-    console.log("DAYS/APP", days, appointments)
+
     // Considering the following day:
     // {
     //   id: 1,
@@ -53,6 +53,8 @@ const useApplicationData = function() {
     return days.map((day) => {
       //day.interviews === [1,2,3,4,5]
       //appointments (line 43 to 50)
+
+
 
       let newSpots = 0;
 

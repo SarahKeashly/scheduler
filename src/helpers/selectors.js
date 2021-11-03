@@ -53,6 +53,7 @@ export function getInterview(state, interview) {
 export function getInterviewersForDay(state, day) {
 
 
+
   //filters the days and checks to see if current day is equal to the day that it is being passed
   const filteredDay = state.days.find(currentDay => (currentDay.name === day));
 
