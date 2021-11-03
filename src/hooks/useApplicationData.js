@@ -50,7 +50,6 @@ const useApplicationData = function() {
     // }
 
 
-    //if interview.interviewer = null then minus 1 from available spots (appointments length)
     return days.map((day) => {
       //day.interviews === [1,2,3,4,5]
       //appointments (line 43 to 50)
