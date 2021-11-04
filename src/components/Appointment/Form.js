@@ -17,13 +17,14 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
-
+    setError("");
     props.onSave(student, interviewerid);
   }
 
   const reset = () => {
     setStudent(props.student || "");
 
+    setError("");
     setInterviewerid(props.interviewer || null);
   };
 
