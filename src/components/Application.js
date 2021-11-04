@@ -1,12 +1,10 @@
-// import React from "react";
+
 
 import "components/Application.scss";
 import DayList from "components/DayList";
 import React from "react";
 import "components/Appointment";
 import Appointment from "components/Appointment";
-
-// import { useEffect } from "react";
 import { getAppointmentsForDay } from "helpers/selectors";
 import { getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
@@ -20,7 +18,6 @@ export default function Application(props) {
     bookInterview,
     cancelInterview
   } = useApplicationData();
-
 
 
   const inteviewers = getInterviewersForDay(state, state.day);
@@ -58,8 +55,6 @@ export default function Application(props) {
             days={state.days}
             value={state.day}
             onChange={setDay}
-
-
           />
         </nav>
         <img
@@ -67,17 +62,13 @@ export default function Application(props) {
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
-
-
       </section>
       <section className="schedule">
-
         {listOfAppointments}
         <Appointment
           key={'last'}
           time={'5pm'}
         />
-
       </section>
     </main>
   );

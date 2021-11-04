@@ -52,17 +52,12 @@ export function getInterview(state, interview) {
 //... returns an array of interviews for that day
 export function getInterviewersForDay(state, day) {
 
-
-
-  //filters the days and checks to see if current day is equal to the day that it is being passed
   const filteredDay = state.days.find(currentDay => (currentDay.name === day));
 
-  //if 0th index is not equal return empty array
   if (!filteredDay) {
     return [];
   }
 
-  //map through the filteredDay appointment and return the state.appointments appointmentid
   const dailyAppointments = filteredDay.interviewers.map(appointmentid => {
     return state.interviewers[appointmentid];
 

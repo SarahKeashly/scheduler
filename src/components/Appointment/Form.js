@@ -1,4 +1,4 @@
-// import React from "react";
+
 import React, { useState } from 'react';
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
@@ -46,11 +46,6 @@ export default function Form(props) {
             type="text"
             placeholder="Enter Student Name"
 
-
-            /*
-           This must be a controlled component
-           your code goes here
-         */
             value={student}
             onChange={(event) => setStudent(event.target.value)}
             data-testid="student-name-input"
@@ -60,7 +55,6 @@ export default function Form(props) {
           <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
-          /* your code goes here */
           setInterviewer={(id) => setInterviewerid(id)}
           interviewers={interviewers}
           interviewer={interviewerid}
@@ -78,4 +72,3 @@ export default function Form(props) {
 
 
 }
-// props.onSave(student, interviewerid)

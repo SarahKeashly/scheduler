@@ -97,6 +97,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           onConfirm={deleteInterview}
+          onCancel={back}
           message={"Are you sure you want to Delete?"}
 
         />

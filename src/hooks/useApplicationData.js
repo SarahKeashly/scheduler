@@ -29,32 +29,10 @@ const useApplicationData = function() {
 
   }, []);
 
-
+  //handles spots updating in the sidebar
   function newDays(days, appointments) {
 
-    // Considering the following day:
-    // {
-    //   id: 1,
-    //   name: "Monday",
-    //   appointments: [1,2,3,4,5]
-    //   spots: 2
-    // }
-
-    // // Considering those appointments:
-    // {
-    //   1:{"id": 1, "time": "12pm", "interview": { ... }
-    //   2:{"id": 2, "time": "1pm", "interview": null
-    //   3:{"id": 3, "time": "2pm", "interview": { ... }
-    //   4:{"id": 4, "time": "3pm", "interview": null
-    //   5:{"id": 5, "time": "4pm", "interview": { ... }
-    // }
-
-
     return days.map((day) => {
-      //day.interviews === [1,2,3,4,5]
-      //appointments (line 43 to 50)
-
-
 
       let newSpots = 0;
 
@@ -71,10 +49,7 @@ const useApplicationData = function() {
     }
     )
 
-  }
-
-
-
+  };
 
 
   //makes an axios put call and adds in the interview form 
@@ -87,16 +62,10 @@ const useApplicationData = function() {
         interview: { ...interview }
       };
 
-      console.log("APP", appointment);
-
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-
-      console.log("interview", interview.interviewer);
-      console.log("appointments", appointments);
-      console.log("NEWDAYS", newDays(state.days, appointments));
 
 
       setState({
@@ -107,7 +76,7 @@ const useApplicationData = function() {
       });
 
     })
-  }
+  };
 
   //takes in id, sets state of interview to null, then sets state of appointments to null interview
   function cancelInterview(id) {
@@ -134,7 +103,6 @@ const useApplicationData = function() {
 
 
     })
-
 
   }
   return { state, setDay, bookInterview, cancelInterview }
