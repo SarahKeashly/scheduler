@@ -13,13 +13,23 @@ export default function Form(props) {
 
 
   function validate() {
+
+    if (interviewerid === null) {
+      setError("Interviewer name cannot be blank");
+      return;
+    }
+
     if (student === "") {
       setError("Student name cannot be blank");
       return;
     }
     setError("");
     props.onSave(student, interviewerid);
+
+
+
   }
+
 
   const reset = () => {
     setStudent(props.student || "");
